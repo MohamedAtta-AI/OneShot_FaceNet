@@ -8,7 +8,8 @@ def init_models(args):
         thresholds=args.thresholds, 
         factor=args.factor, 
         post_process=True,
-        device=args.device
+        device=args.device,
+        keep_all=True
     ).eval()
 
     resnet = InceptionResnetV1(
@@ -17,3 +18,4 @@ def init_models(args):
     ).eval()
 
     return mtcnn, resnet
+    
