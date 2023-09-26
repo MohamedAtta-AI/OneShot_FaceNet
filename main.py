@@ -84,7 +84,7 @@ if __name__ == '__main__':
         # Define video properties
         output_path = 'output.mp4'
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        fps = 30.0
+        fps = int(cap.get(cv2.CAP_PROP_FPS))
         frame_size = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         out = cv2.VideoWriter(output_path, fourcc, fps, frame_size)
         
@@ -97,18 +97,19 @@ if __name__ == '__main__':
             if not ret or cv2.waitKey(1) & 0xFF == ord('q'):
                 break
             
+            
             # Show live feed
             if isinstance(args.input, int):
                 cv2.imshow('One-shot recognizer', frame)
                 analysis = perform_recognition(frame, args)
 
-            # Perform batched detection on pre-recorded video
-            else:
-                frames.append(frame)
-                if len(frames) >= args.batch_size or counter > splits:
-                    analysis = perform_recognition(frames, args)
-                    frames.clear()
-                    counter += 1
+            # # Perform batched detection on pre-recorded video
+            # else:
+            #     frames.append(frame)
+            #     if len(frames) >= args.batch_size or counter > splits:
+            #         analysis = perform_recognition(frames, args)
+            #         frames.clear()
+            #         counter += 1
 
         cap.release()
         out.release()

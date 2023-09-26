@@ -21,26 +21,18 @@ def get_logger(log_file="Log.log"):
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)  # Set the logging level to the lowest (DEBUG)
 
-    # Create a file handler for writing log messages to a file
-    # file_handler = logging.FileHandler(log_file)
-    # file_handler.setLevel(logging.INFO) # Set the file handler's logging level (INFO or higher)
-
     # Create a console handler for displaying log messages to the user
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO) # Set the console handler's logging level (INFO or higher)
 
-    # Create formatters for the log messages
-    fmt = "%(asctime)s [%(levelname)s]: %(message)s"
-    datefmt="%Y-%m-%d %H:%M:%S"
-    # formatter = logging.Formatter(fmt, datefmt)
-    colored_formatter = ColoredFormatter(fmt, datefmt)
+    # Create formatter for the log messages
+    colored_formatter = ColoredFormatter(fmt="%(asctime)s [%(levelname)s]: %(message)s",
+                                         datefmt="%Y-%m-%d %H:%M:%S")
 
-    # Set the formatter for both handlers
-    # file_handler.setFormatter(formatter)
+    # Set the formatter the handler
     console_handler.setFormatter(colored_formatter)
 
-    # Add the handlers to the logger
-    # logger.addHandler(file_handler)
+    # Add the handler to the logger
     logger.addHandler(console_handler)
 
     return logger
